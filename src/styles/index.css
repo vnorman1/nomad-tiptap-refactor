@@ -1,0 +1,228 @@
+/* NOMAD Design System - Typography */
+/* Using Inter (sans) and JetBrains Mono (mono) from Google Fonts */
+/* Local Geist Fonts */
+@font-face {
+    font-family: 'Geist Sans';
+    src: url('/fonts/GeistSans-Variable.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geist Mono';
+    src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        /* ==========================================================================
+           MASTER THEME CONTROLS - CSAK EZT A 2 SZÍNT KELL MÓDOSÍTANOD!
+           (Minden kártya, felület, szegély és szöveg automatikusan ebből számolódik)
+           ========================================================================== */
+        --theme-light-hue: 40;
+        --theme-light-sat: 10%;
+        --theme-light-lum: 96.5%;
+        /* 1. VILÁGOS ALAPSZÍN (Off-white) */
+
+        --theme-dark-hue: 40;
+        --theme-dark-sat: 5%;
+        --theme-dark-lum: 5.5%;
+        /* 2. SÖTÉT ALAPSZÍN (Sötétebb fekete / mély charcoal) */
+
+        /* --------------------------------------------------------------------------
+           AUTOMATIKUSAN SZÁMÍTOTT VILÁGOS MÓD (LIGHT MODE DERIVATIONS)
+           -------------------------------------------------------------------------- */
+        --background: var(--theme-light-hue) var(--theme-light-sat) var(--theme-light-lum);
+        --foreground: var(--theme-dark-hue) var(--theme-dark-sat) calc(var(--theme-dark-lum) + 2%);
+
+        --card: var(--theme-light-hue) var(--theme-light-sat) min(100%, calc(var(--theme-light-lum) + 3.5%));
+        --card-foreground: var(--foreground);
+
+        --popover: var(--theme-light-hue) var(--theme-light-sat) min(100%, calc(var(--theme-light-lum) + 3.5%));
+        --popover-foreground: var(--foreground);
+
+        --primary: var(--foreground);
+        --primary-foreground: var(--background);
+
+        --surface: var(--theme-light-hue) var(--theme-light-sat) calc(var(--theme-light-lum) - 2.5%);
+        --surface-foreground: var(--foreground);
+
+        --secondary: var(--theme-light-hue) var(--theme-light-sat) calc(var(--theme-light-lum) - 4%);
+        --secondary-foreground: var(--foreground);
+
+        --muted: var(--theme-light-hue) var(--theme-light-sat) calc(var(--theme-light-lum) - 6%);
+        --muted-foreground: var(--theme-light-hue) var(--theme-light-sat) 42%;
+
+        --accent: var(--theme-light-hue) var(--theme-light-sat) calc(var(--theme-light-lum) - 5%);
+        --accent-foreground: var(--foreground);
+
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+
+        --border: var(--theme-light-hue) var(--theme-light-sat) calc(var(--theme-light-lum) - 11%);
+        --input: var(--theme-light-hue) var(--theme-light-sat) calc(var(--theme-light-lum) - 11%);
+        --ring: var(--foreground);
+
+        --radius: 0px;
+    }
+
+    .dark {
+        /* --------------------------------------------------------------------------
+           AUTOMATIKUSAN SZÁMÍTOTT SÖTÉT MÓD (DARK MODE DERIVATIONS)
+           -------------------------------------------------------------------------- */
+        --background: var(--theme-dark-hue) var(--theme-dark-sat) var(--theme-dark-lum);
+        --foreground: var(--theme-light-hue) var(--theme-light-sat) calc(var(--theme-light-lum) - 2%);
+
+        --card: var(--theme-dark-hue) var(--theme-dark-sat) calc(var(--theme-dark-lum) + 3.5%);
+        --card-foreground: var(--foreground);
+
+        --popover: var(--theme-dark-hue) var(--theme-dark-sat) calc(var(--theme-dark-lum) + 3.5%);
+        --popover-foreground: var(--foreground);
+
+        --primary: var(--foreground);
+        --primary-foreground: var(--background);
+
+        --surface: var(--theme-dark-hue) var(--theme-dark-sat) calc(var(--theme-dark-lum) + 5%);
+        --surface-foreground: var(--foreground);
+
+        --secondary: var(--theme-dark-hue) var(--theme-dark-sat) calc(var(--theme-dark-lum) + 7%);
+        --secondary-foreground: var(--foreground);
+
+        --muted: var(--theme-dark-hue) var(--theme-dark-sat) calc(var(--theme-dark-lum) + 8%);
+        --muted-foreground: var(--theme-dark-hue) var(--theme-dark-sat) 60%;
+
+        --accent: var(--theme-dark-hue) var(--theme-dark-sat) calc(var(--theme-dark-lum) + 9%);
+        --accent-foreground: var(--foreground);
+
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 0 0% 96%;
+
+        --border: var(--theme-dark-hue) var(--theme-dark-sat) calc(var(--theme-dark-lum) + 12%);
+        --input: var(--theme-dark-hue) var(--theme-dark-sat) calc(var(--theme-dark-lum) + 12%);
+        --ring: var(--theme-dark-hue) var(--theme-dark-sat) 75%;
+    }
+
+    * {
+        @apply border-border;
+    }
+
+    html {
+        /* Always reserve space for the vertical scrollbar so pages whose
+           content height crosses the viewport threshold (e.g. switching
+           between Settings tabs with different content lengths) don't
+           shift the whole centered layout left/right when the scrollbar
+           appears or disappears. `scrollbar-gutter` is the modern way to
+           do this; `overflow-y: scroll` is kept as a fallback for browsers
+           that don't support scrollbar-gutter yet (older Safari). */
+        scrollbar-gutter: stable;
+        overflow-y: scroll;
+    }
+
+
+
+    body {
+        @apply bg-background text-foreground antialiased selection:bg-foreground selection:text-background;
+        font-family: 'Geist Sans', 'Inter', sans-serif;
+    }
+
+    /* Architectural Grid Background */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: -1;
+        color: var(--foreground);
+    }
+
+}
+
+@layer components {
+
+    /* Blueprint Button */
+    .btn {
+        @apply inline-flex items-center justify-center whitespace-nowrap text-xs font-mono tracking-widest uppercase transition-all focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 h-9 px-6 border border-transparent hover:border-foreground;
+    }
+
+    .btn-primary {
+        @apply bg-foreground text-background hover:bg-transparent hover:text-foreground;
+    }
+
+    .btn-secondary {
+        @apply border-border bg-transparent hover:border-foreground text-foreground;
+    }
+
+    /* Strict Inputs - Architect Style */
+    .input-field {
+        @apply flex h-10 w-full bg-transparent border-b border-border px-0 py-2 text-sm font-mono focus:border-foreground transition-all placeholder:text-muted-foreground/50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 rounded-none;
+    }
+
+    /* Card Reset - Let Dashboard handle styling */
+    .fashion-card {
+        @apply relative border border-border bg-background p-6;
+    }
+
+    .badge {
+        @apply inline-flex items-center border border-foreground/20 px-2 py-0.5 text-[9px] font-mono uppercase tracking-widest transition-colors;
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-foreground/20 hover:bg-foreground/40 transition-colors;
+    }
+}
+
+/* ==========================================================================
+   Webhook Mapping Canvas (@xyflow/react)
+   ==========================================================================
+   The library's "React Flow" attribution watermark is a paid-tier upsell
+   badge that links out to reactflow.dev. It is disabled via the
+   `proOptions={{ hideAttribution: true }}` prop in MappingCanvas.tsx, but
+   that prop is easy to lose silently on a future dependency bump (it is not
+   type-checked against actually rendering) - this CSS rule hides the
+   attribution element unconditionally as a second, independent guarantee. */
+.mapping-canvas .react-flow__attribution {
+    display: none !important;
+}
+
+/* React Flow's zoom controls ship with light-mode-only inline styles, which
+   is why the zoom percentage / +/- buttons stayed dark-on-dark and looked
+   unreadable in this app's dark theme. Restoring the same background/border/
+   text tokens the rest of the admin UI uses makes the control follow the
+   active theme instead of the library's hardcoded default. */
+.mapping-canvas .react-flow__controls {
+    box-shadow: none;
+}
+
+.mapping-canvas .react-flow__controls-button {
+    background: hsl(var(--background));
+    border-bottom: 1px solid hsl(var(--border));
+    color: hsl(var(--foreground));
+}
+
+.mapping-canvas .react-flow__controls-button:hover {
+    background: hsl(var(--muted));
+}
+
+.mapping-canvas .react-flow__controls-button svg {
+    fill: hsl(var(--foreground));
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="hu" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" id="favicon" type="image/png" href="/assets/icon_light.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Headless CMS Admin Panel - Configuration-driven content management" />
+  <meta name="robots" content="noindex, nofollow" />
+  <style id="nomad-theme-preload">
+    html {
+      background-color: hsl(40, 10%, 96.5%);
+    }
+
+    html.dark {
+      background-color: hsl(40, 5%, 5.5%);
+    }
+  </style>
+
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme') || localStorage.getItem('nomad_theme');
+        var isDark = t === 'dark' || (!t || t === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) { }
+    })();
+  </script>
+</head>
+
+<body class="antialiased">
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>
