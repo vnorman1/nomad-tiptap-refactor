@@ -1,3 +1,7 @@
+---
+inclusion: always
+---
+
 ### Internationalization (i18n) & Isolated Namespace Conventions
 - **No Proprietary CMS i18n Imports:** Do not import production CMS localization packages, internal translation APIs, or `@/services/i18n` modules.
 - **Dedicated Collision-Free Namespace (`editor.richTextUpdate`):**

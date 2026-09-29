@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "editor-docs": {
+            "command": "/opt/homebrew/bin/uvx",
+            "args": [
+                "mcp-server-fetch"
+            ],
+            "disabled": false
+        }
+    }
+}

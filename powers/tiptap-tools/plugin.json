@@ -1,0 +1,28 @@
+{
+    "name": "notion-rich-text-toolkit",
+    "version": "1.1.0",
+    "description": "Comprehensive toolkit for engineering Notion-style modular editors: floating UI portals, React NodeViews (KaTeX, Code, Media), slash-commands, and ProseMirror property-based testing.",
+    "keywords": [
+        "notion",
+        "tiptap",
+        "prosemirror",
+        "rich-text",
+        "wysiwyg",
+        "editor",
+        "bubble-menu",
+        "slash-command",
+        "katex",
+        "math",
+        "nodeview",
+        "drag-handle",
+        "pbt"
+    ],
+    "author": {
+        "name": "Norman Vajda"
+    },
+    "skills": [
+        "./skills/notion-floating-ui",
+        "./skills/react-nodeviews",
+        "./skills/prosemirror-testing"
+    ]
+}
