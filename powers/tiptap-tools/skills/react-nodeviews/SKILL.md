@@ -1,3 +1,8 @@
+---
+name: react-nodeviews
+description: Architecture and implementations for TipTap React NodeViews including KaTeX math blocks and code blocks.
+---
+ 
 # Advanced React NodeViews Implementation Skill
 
 ## 1. KaTeX Math Block NodeView

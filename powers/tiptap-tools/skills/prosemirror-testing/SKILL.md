@@ -1,3 +1,7 @@
+---
+name: prosemirror-testing
+description: Property-based testing invariants and verification strategies for TipTap and ProseMirror schemas using fast-check.
+---
 # ProseMirror & TipTap Testing Invariants Skill
 
 When building or refactoring TipTap blocks, enforce these automated verification patterns:

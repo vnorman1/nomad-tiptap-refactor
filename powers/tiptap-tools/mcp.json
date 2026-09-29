@@ -1,11 +1,10 @@
 {
-    "mcpServers": {
-        "editor-docs": {
-            "command": "/opt/homebrew/bin/uvx",
-            "args": [
-                "mcp-server-fetch"
-            ],
-            "disabled": false
-        }
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "editor-docs": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"]
     }
+  }
 }

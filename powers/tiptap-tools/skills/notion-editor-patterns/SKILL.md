@@ -1,3 +1,7 @@
+---
+name: notion-editor-patterns
+description: Guidelines and UI patterns for Notion-style block editors, floating bubble menus, and slash command dropdowns.
+---
 # Notion-Style Rich Text Editor Patterns (TipTap & React)
 
 This skill provides best practices for engineering modern, distraction-free block editors inspired by Notion.
