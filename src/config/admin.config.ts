@@ -28,31 +28,8 @@ export const I18N_CONFIG = {
 // Mezőtípus definíciók
 export type FieldType =
     | 'text'
-    | 'textarea'
     | 'richtext'
-    | 'number'
-    | 'email'
-    | 'url'
-    | 'date'
-    | 'datetime'
-    | 'boolean'
-    | 'select'
-    | 'multiselect'
-    | 'image'
-    | 'gif'
-    | 'gallery'
-    | 'color'
-    | 'json'
-    | 'array'
-    | 'file'
-    | 'slug'
-    | 'map'
-    | 'iframe'
-    | 'blocks'
-    | 'video'
-    | 'audio'
-    | 'relation'
-    | 'relation_many';
+
 
 export interface FileFieldConfig {
     allowedTypes?: string[];
@@ -109,7 +86,7 @@ export function getSitemapKeys(): string[] {
     return [];
 }
 
-export async function initializeSchema(): Promise<void> {}
+export async function initializeSchema(): Promise<void> { }
 
 export function isSchemaLoaded(): boolean {
     return true;

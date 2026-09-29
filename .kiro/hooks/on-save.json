@@ -1,0 +1,32 @@
+{
+    "version": "v1",
+    "hooks": [
+        {
+            "name": "format-and-typecheck",
+            "trigger": "PostFileSave",
+            "matcher": "src/.*\\.(ts|tsx)$",
+            "action": {
+                "type": "command",
+                "command": "npx prettier --write {{filePath}} && npx tsc --noEmit"
+            }
+        },
+        {
+            "name": "enforce-isolated-i18n-namespace",
+            "trigger": "PostFileSave",
+            "matcher": "src/components/fields/FieldRendererComponents/.*\\.(ts|tsx)$",
+            "action": {
+                "type": "agent",
+                "prompt": "Verify that any added UI text strictly uses the 'editor.richTextUpdate' namespace and does not introduce hardcoded strings or external CMS dependencies."
+            }
+        },
+        {
+            "name": "protect-sensitive-config",
+            "trigger": "PreToolUse",
+            "matcher": ".*(admin\\.config\\.ts|\\.env).*",
+            "action": {
+                "type": "command",
+                "command": "echo 'Protected configuration file' && exit 2"
+            }
+        }
+    ]
+}
