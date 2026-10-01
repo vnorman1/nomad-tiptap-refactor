@@ -15,10 +15,9 @@
     "katex",
     "math",
     "nodeview",
-    "drag-handle",
-    "pbt"
+    "drag-handle"
   ],
   "author": {
-    "name": "Norman Vajda"
+    "name": "vnorman1"
   }
 }
