@@ -9,7 +9,7 @@
         "type": "command",
         "command": "npx prettier --write {{filePath}} && npx tsc --noEmit"
       },
-      "enabled": false
+      "enabled": true
     },
     {
       "name": "enforce-isolated-i18n-namespace",
@@ -19,7 +19,7 @@
         "type": "agent",
         "prompt": "Verify that any added UI text strictly uses the 'editor.richTextUpdate' namespace and does not introduce hardcoded strings or external CMS dependencies."
       },
-      "enabled": false
+      "enabled": true
     },
     {
       "name": "protect-sensitive-config",
@@ -29,7 +29,7 @@
         "type": "command",
         "command": "echo 'Protected configuration file' && exit 2"
       },
-      "enabled": false
+      "enabled": true
     }
   ]
 }
