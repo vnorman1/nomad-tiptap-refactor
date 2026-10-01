@@ -38,7 +38,7 @@ import '@tiptap/extension-image';
 import {
     CustomImage, Video, Audio, Coordinates,
     CustomTable, CustomTableRow, CustomTableHeader, CustomTableCell,
-    MathFormula, CustomCodeBlock, InlineMath
+    MathFormula, CustomCodeBlock, InlineMath, FloatingToolbar
 } from './RichTextExtensions';
 import { I18N_CONFIG } from '@/config/admin.config';
 import { useEntityPresence } from '@/hooks/useEntityPresence';
@@ -690,6 +690,14 @@ export default function RichTextFieldRenderer({
                 {tableActionBarState.isInTable && editor && typeof document !== 'undefined' && createPortal(
                     <TableActionBar editor={editor} position={tableActionBarState.position} />,
                     document.body
+                )}
+
+                {/* Floating Context Toolbar */}
+                {editor && (
+                    <FloatingToolbar
+                        editor={editor}
+                        enabled={!isDisabled && !isReadOnly}
+                    />
                 )}
 
                 {/* More Menu Dropdown Rendered via Portal */}

@@ -61,19 +61,17 @@ export interface FloatingToolbarProps {
  *
  * Shows when non-empty text is selected and editor is enabled
  */
-export const FloatingToolbar = React.forwardRef<
-  HTMLDivElement,
-  FloatingToolbarProps
->(({ editor, enabled = true, className = '' }, ref) => {
+export function FloatingToolbar({ editor, enabled = true, className = '' }: FloatingToolbarProps) {
   const { t } = useTranslation(['editor', 'common']);
   const [isVisible, setIsVisible] = useState(false);
   const [position, setPosition] = useState<FloatingPosition>({ top: 0, left: 0 });
+  const [placement, setPlacement] = useState<'above' | 'below'>('above');
   const [isFading, setIsFading] = useState(false);
   const fadeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Get toolbar positioning from hook - only enabled if editor is not disabled/readonly
-  const { isVisible: hookIsVisible, position: hookPosition } = useFloatingToolbar({
-    enabled: enabled && editor?.isEditable,
+  const { isVisible: hookIsVisible, position: hookPosition, placement: hookPlacement } = useFloatingToolbar({
+    enabled: enabled && Boolean(editor?.isEditable),
   });
 
   // Handle toolbar visibility with fade effect
@@ -83,6 +81,7 @@ export const FloatingToolbar = React.forwardRef<
       setIsFading(false);
       setIsVisible(true);
       setPosition(hookPosition);
+      setPlacement(hookPlacement || 'above');
       // Clear any pending fade timeout
       if (fadeTimeoutRef.current) {
         clearTimeout(fadeTimeoutRef.current);
@@ -102,19 +101,19 @@ export const FloatingToolbar = React.forwardRef<
         clearTimeout(fadeTimeoutRef.current);
       }
     };
-  }, [hookIsVisible, hookPosition]);
+  }, [hookIsVisible, hookPosition, hookPlacement]);
 
   if (!editor || !isVisible) {
     return null;
   }
 
-  // Calculate toolbar transform to center it horizontally
-  // The toolbar width is controlled by CSS, so we use -50% to center
+  // Calculate toolbar transform to center it horizontally and position above/below
+  // Note: Uses position: fixed and zIndex: 999999 for top-level viewport placement
   const toolbarStyle: React.CSSProperties = {
     position: 'fixed',
     top: `${position.top}px`,
     left: `${position.left}px`,
-    transform: 'translateX(-50%)',
+    transform: placement === 'below' ? 'translateX(-50%)' : 'translate(-50%, -100%)',
     zIndex: 999999,
     opacity: isFading ? 0 : 1,
     transition: 'opacity 100ms ease-out',
@@ -123,9 +122,9 @@ export const FloatingToolbar = React.forwardRef<
 
   return createPortal(
     <div
-      ref={ref}
       style={toolbarStyle}
-      className={`flex gap-2 items-center bg-background border border-border rounded-md shadow-lg p-2 ${className}`}
+      onMouseDown={(e) => e.preventDefault()}
+      className={`flex gap-2 items-center bg-background text-foreground border border-border rounded-md shadow-lg p-2 ${className}`}
     >
       {/* Group 1: Text Formatting */}
       <ToolbarGroup>
@@ -337,6 +336,6 @@ export const FloatingToolbar = React.forwardRef<
     </div>,
     document.body
   );
-});
+}
 
 FloatingToolbar.displayName = 'FloatingToolbar';

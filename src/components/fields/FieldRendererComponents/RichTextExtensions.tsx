@@ -43,6 +43,12 @@ export { InlineMathNodeView } from './extensions/math/InlineMathNodeView';
 export { CodeBlockNodeView } from './extensions/code/CodeBlockNodeView';
 export { MathSymbolPalette } from './extensions/math/MathSymbolPalette';
 
+// Re-export Floating Toolbar component and hook
+export { FloatingToolbar } from './extensions/shared/FloatingToolbar';
+export type { FloatingToolbarProps } from './extensions/shared/FloatingToolbar';
+export { useFloatingToolbar, calculateToolbarPosition } from './extensions/shared/useFloatingToolbar';
+export type { FloatingToolbarResult, UseFloatingToolbarOptions } from './extensions/shared/useFloatingToolbar';
+
 // Export utility functions used by RichTextFieldRenderer
 export function getResolvedCentralAlt(src: unknown): string {
   const central = getCentralAlt(src);

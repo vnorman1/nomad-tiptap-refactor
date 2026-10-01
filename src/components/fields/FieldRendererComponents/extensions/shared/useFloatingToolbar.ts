@@ -48,6 +48,8 @@ export interface FloatingToolbarResult {
   position: FloatingPosition;
   /** Currently active text selection (for client-side ref tracking) */
   selection: Selection | null;
+  /** Placement relative to selection */
+  placement?: 'above' | 'below';
 }
 
 /**
@@ -134,6 +136,7 @@ export function calculateToolbarPosition(
         top,
         left,
       },
+      placement: shouldPositionBelow ? 'below' : 'above',
       selection,
     };
   } catch {
@@ -141,6 +144,7 @@ export function calculateToolbarPosition(
     return {
       isVisible: false,
       position: { top: 0, left: 0 },
+      placement: 'above',
       selection,
     };
   }
