@@ -1,0 +1,99 @@
+/**
+ * Table Cell Selection & Styling
+ * 
+ * Provides visual feedback for table cell selection and column resize handles.
+ * Uses HSL CSS variable tokens for theme consistency.
+ * 
+ * Requirements: 6.2, 6.3, 11.6, 14.1, 14.3
+ */
+
+/* Table Container - Ensure proper rendering */
+.nomad-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/**
+ * Table Cell Selection Styling
+ * 
+ * Selected cells render with a semi-transparent background tint using the
+ * primary color, providing clear visual feedback during editing.
+ */
+.nomad-table td.selected,
+.nomad-table th.selected {
+  background-color: hsl(var(--primary) / 0.1);
+}
+
+/**
+ * Table Header Cell Styling
+ * 
+ * Headers render with a distinct background color (secondary token) that
+ * visually separates them from the page/desk background (Requirement 6.2).
+ */
+.nomad-table th {
+  background-color: hsl(var(--secondary) / 0.3);
+  border: 1px solid hsl(var(--border));
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+/**
+ * Table Data Cell Styling
+ * 
+ * Regular cells use top vertical alignment (Requirement 6.2) and standard
+ * padding/border styling consistent with design tokens.
+ */
+.nomad-table td {
+  border: 1px solid hsl(var(--border));
+  padding: 0.5rem 0.75rem;
+  vertical-align: top;
+  color: hsl(var(--foreground));
+}
+
+/**
+ * Column Resize Handle Styling
+ * 
+ * The Tiptap table resize handle gets a color accent when active to
+ * distinguish it from inactive handles (Requirement 6.2).
+ */
+.nomad-table .tableWrapper--isResizing {
+  pointer-events: none;
+  background-color: hsl(var(--primary));
+  position: absolute;
+  height: 100%;
+  width: 2px;
+  right: -1px;
+  top: 0;
+  cursor: col-resize;
+  user-select: none;
+  z-index: 10;
+}
+
+/**
+ * Resize Handle Active State
+ * 
+ * When a column is being actively resized, highlight the resize handle
+ * with the primary accent color for better visual feedback.
+ */
+.nomad-table.is-resizing .tableWrapper--isResizing {
+  background-color: hsl(var(--accent));
+  width: 3px;
+  right: -1.5px;
+}
+
+/**
+ * Dark Mode Adjustments
+ * 
+ * Ensure table styling remains legible in dark mode with appropriate
+ * opacity and contrast adjustments.
+ */
+.dark .nomad-table th {
+  background-color: hsl(var(--secondary) / 0.2);
+}
+
+.dark .nomad-table td.selected,
+.dark .nomad-table th.selected {
+  background-color: hsl(var(--primary) / 0.15);
+}

@@ -67,6 +67,11 @@
         --destructive: 0 84.2% 60.2%;
         --destructive-foreground: 0 0% 98%;
 
+        --success: 142.4 76.2% 36.3%;
+        --success-foreground: 0 0% 98%;
+
+        --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
         --border: var(--theme-light-hue) var(--theme-light-sat) calc(var(--theme-light-lum) - 11%);
         --input: var(--theme-light-hue) var(--theme-light-sat) calc(var(--theme-light-lum) - 11%);
         --ring: var(--foreground);
@@ -104,6 +109,11 @@
 
         --destructive: 0 62.8% 30.6%;
         --destructive-foreground: 0 0% 96%;
+
+        --success: 142.4 71.2% 51.4%;
+        --success-foreground: 0 0% 96%;
+
+        --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.5);
 
         --border: var(--theme-dark-hue) var(--theme-dark-sat) calc(var(--theme-dark-lum) + 12%);
         --input: var(--theme-dark-hue) var(--theme-dark-sat) calc(var(--theme-dark-lum) + 12%);

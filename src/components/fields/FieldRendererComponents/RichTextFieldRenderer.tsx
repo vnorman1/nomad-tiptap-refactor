@@ -22,6 +22,7 @@ import { sanitizeHTML, sanitizeMarkdownInput, escapeAttribute } from '@/utils/sa
 import MediaPicker, { type MediaItem } from '@/components/Media/MediaPicker';
 import { uploadImage, uploadVideo, uploadAudio } from '@/api/upload';
 import { useLanguage } from '@/context/LanguageContext';
+import { TableActionBar } from './extensions/table';
 
 // Tiptap imports
 import { useEditor, EditorContent } from '@tiptap/react';
@@ -127,6 +128,12 @@ export default function RichTextFieldRenderer({
     });
 
     const [, setEditorUpdateTrigger] = useState(0);
+
+    // Table action bar state - will be set after editor is initialized
+    const [tableActionBarState, setTableActionBarState] = useState<{ isInTable: boolean; position: { top: number; left: number } }>({
+        isInTable: false,
+        position: { top: 0, left: 0 },
+    });
 
     // Initialize Tiptap editor
     const editor = useEditor({
@@ -263,6 +270,44 @@ export default function RichTextFieldRenderer({
             }
         }
     }, [safeValue, editor]);
+
+    // Handle table action bar state
+    useEffect(() => {
+        if (!editor) return;
+
+        const handleUpdate = () => {
+            const { $from } = editor.state.selection;
+            
+            // Walk up the document tree to find if we're inside a table
+            let inTable = false;
+            for (let depth = $from.depth; depth > 0; depth--) {
+                const node = $from.node(depth);
+                if (node.type.name === 'tableCell' || node.type.name === 'tableHeader') {
+                    inTable = true;
+                    break;
+                }
+                if (node.type.name === 'table') {
+                    break;
+                }
+            }
+
+            setTableActionBarState(prev => ({
+                ...prev,
+                isInTable: inTable,
+            }));
+        };
+
+        editor.on('update', handleUpdate);
+        editor.on('selectionUpdate', handleUpdate);
+        
+        // Initial check
+        handleUpdate();
+
+        return () => {
+            editor.off('update', handleUpdate);
+            editor.off('selectionUpdate', handleUpdate);
+        };
+    }, [editor]);
 
     // Handle opening and positioning the more menu portal
     const handleToggleMoreMenu = () => {
@@ -639,6 +684,12 @@ export default function RichTextFieldRenderer({
                             </button>
                         </div>
                     </div>
+                )}
+
+                {/* Table Action Bar - Portal */}
+                {tableActionBarState.isInTable && editor && typeof document !== 'undefined' && createPortal(
+                    <TableActionBar editor={editor} position={tableActionBarState.position} />,
+                    document.body
                 )}
 
                 {/* More Menu Dropdown Rendered via Portal */}
@@ -1227,6 +1278,7 @@ export default function RichTextFieldRenderer({
                             {/* ELEVATED PAPER SHEET */}
                             <div
                                 ref={paperRef}
+                                data-editor-root
                                 className={cn(
                                     "w-full bg-background rounded-lg shadow-2xl border border-border/70 transition-all duration-300 relative flex flex-col mb-12",
                                     "[&_.ProseMirror]:min-h-[850px] [&_.ProseMirror]:focus:outline-none",
