@@ -102,7 +102,7 @@ graph TD
         SharedModule --> UIPrimitives["Toolbar UI Primitives"]
         SharedModule --> MathPrev["useMathPreview / KaTeX Hook"]
     end
-
+```
 ---
 
 ## 📁 Directory Structure
