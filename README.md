@@ -72,37 +72,36 @@ The **Nomad Modular TipTap Engine** is designed to break down the monolithic cou
 
 ```mermaid
 graph TD
-    App[Showcase Application / App.tsx] --> FieldRenderer[RichTextFieldRenderer]
-    FieldRenderer --> RichTextExtensions[RichTextExtensions Entry Point]
+    App["Showcase Application (App.tsx)"] --> FieldRenderer["RichTextFieldRenderer"]
+    FieldRenderer --> RichTextExtensions["RichTextExtensions Entry Point"]
     
-    subgraph Modular Engine [/src/.../extensions/]
-        RichTextExtensions --> MediaModule[extensions/media]
-        RichTextExtensions --> MathModule[extensions/math]
-        RichTextExtensions --> CodeModule[extensions/code]
-        RichTextExtensions --> TableModule[extensions/table]
-        RichTextExtensions --> SharedModule[extensions/shared]
+    subgraph ModularEngine ["Modular Engine (/src/.../extensions/)"]
+        RichTextExtensions --> MediaModule["extensions/media"]
+        RichTextExtensions --> MathModule["extensions/math"]
+        RichTextExtensions --> CodeModule["extensions/code"]
+        RichTextExtensions --> TableModule["extensions/table"]
+        RichTextExtensions --> SharedModule["extensions/shared"]
         
-        MediaModule --> ImgNV[ImageNodeView]
-        MediaModule --> VidNV[VideoNodeView]
-        MediaModule --> AudNV[AudioNodeView]
-        MediaModule --> CoordNV[CoordinatesNodeView]
+        MediaModule --> ImgNV["ImageNodeView"]
+        MediaModule --> VidNV["VideoNodeView"]
+        MediaModule --> AudNV["AudioNodeView"]
+        MediaModule --> CoordNV["CoordinatesNodeView"]
         
-        MathModule --> MathFormulaNV[MathFormulaNodeView]
-        MathModule --> InlineMathNV[InlineMathNodeView]
-        MathModule --> MathPalette[MathSymbolPalette]
+        MathModule --> MathFormulaNV["MathFormulaNodeView"]
+        MathModule --> InlineMathNV["InlineMathNodeView"]
+        MathModule --> MathPalette["MathSymbolPalette"]
         
-        CodeModule --> CodeNV[CodeBlockNodeView]
-        CodeModule --> CodeTB[CodeBlockToolbar]
+        CodeModule --> CodeNV["CodeBlockNodeView"]
+        CodeModule --> CodeTB["CodeBlockToolbar"]
         
-        TableModule --> TableAB[TableActionBar]
-        TableModule --> TableCSS[table.css Tokenized Selection]
+        TableModule --> TableAB["TableActionBar"]
+        TableModule --> TableCSS["table.css Tokenized Selection"]
         
-        SharedModule --> FloatTB[FloatingToolbar Component]
-        SharedModule --> UseFloatTB[useFloatingToolbar Hook]
-        SharedModule --> UIPrimitives[Toolbar UI Primitives]
-        SharedModule --> MathPrev[useMathPreview / KaTeX Hook]
+        SharedModule --> FloatTB["FloatingToolbar Component"]
+        SharedModule --> UseFloatTB["useFloatingToolbar Hook"]
+        SharedModule --> UIPrimitives["Toolbar UI Primitives"]
+        SharedModule --> MathPrev["useMathPreview / KaTeX Hook"]
     end
-```
 
 ---
 
@@ -353,6 +352,21 @@ The test suite in [`MathExtensions.pbt.test.ts`](src/components/fields/FieldRend
 5. **Snippet Cursor Arithmetic Invariants**:
    For any text buffer and selection range $[s, e]$, inserting template snippets yields exact length arithmetic:
    $$L_{\text{next}} = s + L_{\text{insertion}} + (L_{\text{base}} - e), \quad 0 \le \text{newCursorPos} \le L_{\text{next}}$$
+
+---
+
+## 🛠️ Built with Kiro (Kiro University Challenge)
+
+This project was engineered using Kiro as the primary development environment, showcasing spec-driven architecture, automated quality gates, and agent extensibility:
+
+- **Specs-Driven Refactoring (`.kiro/specs/`)**: The complete monolithic decomposition roadmap and acceptance criteria were formally driven by `.kiro/specs/rich-text-refactor.md`.
+- **Quality Steering (`.kiro/steering/`)**: Enforced strict ProseMirror transaction patterns and banned untyped `any` assignments via `.kiro/steering/editor-conventions.md`.
+- **Pre-Save Hooks (`.kiro/hooks/`)**: Automated typechecking (`tsc --noEmit`), code formatting, and protected-file mutation guards via blocking hooks (`on-save.json`).
+- **Custom Power (`powers/tiptap-tools`)**: Built an open, portable agent Power containing 3 specialized skills:
+  - `notion-editor-patterns`: Bubble menus, focus traps, and portal contracts.
+  - `react-nodeviews`: Isolated React NodeView lifecycles and KaTeX fallbacks.
+  - `prosemirror-testing`: Formal property-based testing and schema invariant guidelines.
+- **Model Context Protocol (MCP)**: Integrated `fetch` and `puppeteer` servers for live TipTap documentation validation and headless DOM regression verification.
 
 ---
 
